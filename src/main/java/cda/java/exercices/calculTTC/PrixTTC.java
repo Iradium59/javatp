@@ -16,7 +16,7 @@ public class PrixTTC {
             System.out.print("Veuillez saisir le prix HT (nombre positif) : ");
             while (!scanner.hasNextFloat()) {
                 System.out.println("Veuillez saisir un nombre valide.");
-                scanner.next(); // Effacer la saisie incorrecte
+                scanner.next();
             }
             prixHT = scanner.nextFloat();
         } while (prixHT <= 0);
