@@ -14,6 +14,7 @@ public class NoteTest {
         assertEquals(0, calculerMoyenne(notesMap));
     }
 
+
     @Test
     public void testCalculMoyenneWithOneNote() {
         HashMap<Integer, Integer> notesMap = new HashMap<>();
