@@ -1,11 +1,8 @@
 package cda.java.exercices.tp3TU;
 
 public class Thermometre {
-    public int getTemperatureProcheDeZero(int[] temperatures) {
-        if (temperatures.length > 10000) {
-            throw new IllegalArgumentException("Trop de mesures, veuillez en fournir moins de 10000.");
-        }
 
+    public int getTemperatureProcheDeZero(int[] temperatures) {
         if (temperatures.length == 0) {
             return 0;
         }
@@ -13,8 +10,9 @@ public class Thermometre {
         int temperatureProcheDeZero = temperatures[0];
 
         for (int temperature : temperatures) {
-            if (Math.abs(temperature) < Math.abs(temperatureProcheDeZero) ||
-                    (Math.abs(temperature) == Math.abs(temperatureProcheDeZero) && temperature > 0)) {
+            // On compare la valeur absolue de chaque température
+            if (Math.abs(temperature) < Math.abs(temperatureProcheDeZero)
+                    || (Math.abs(temperature) == Math.abs(temperatureProcheDeZero) && temperature > 0)) {
                 temperatureProcheDeZero = temperature;
             }
         }
@@ -22,3 +20,4 @@ public class Thermometre {
         return temperatureProcheDeZero;
     }
 }
+
