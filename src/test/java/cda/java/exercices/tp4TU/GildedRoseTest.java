@@ -63,4 +63,31 @@ public class GildedRoseTest {
         assertEquals(2, conjuredItem.sellIn);
     }
 
+    @Test
+    public void testUpdateQualityForConjuredItemWithZeroQuality() {
+        Item conjuredItem = new Item("Conjured Mana Cake", 3, 0);
+        GildedRose app = new GildedRose(new Item[]{conjuredItem});
+        app.updateQuality();
+        assertEquals(0, conjuredItem.quality);
+        assertEquals(2, conjuredItem.sellIn);
+    }
+
+    @Test
+    public void testUpdateQualityForConjuredItemSellInZero() {
+        Item conjuredItem = new Item("Conjured Mana Cake", 0, 6);
+        GildedRose app = new GildedRose(new Item[]{conjuredItem});
+        app.updateQuality();
+        assertEquals(2, conjuredItem.quality);
+        assertEquals(-1, conjuredItem.sellIn);
+    }
+
+    @Test
+    public void testUpdateQualityForConjuredItemWithNegativeSellIn() {
+        Item conjuredItem = new Item("Conjured Mana Cake", -1, 6);
+        GildedRose app = new GildedRose(new Item[]{conjuredItem});
+        app.updateQuality();
+        assertEquals(2, conjuredItem.quality); // Quality degrades twice as fast after sellIn
+        assertEquals(-2, conjuredItem.sellIn);
+    }
+
 }
