@@ -22,6 +22,7 @@ public class RomainToArabe {
                 nombreRomain.length() <= 15;
     }
 
+
     public static int convertirRomanEnArabe(String nombreRomain) {
         HashMap<Character, Integer> valeurs = new HashMap<>();
         valeurs.put('I', 1);
