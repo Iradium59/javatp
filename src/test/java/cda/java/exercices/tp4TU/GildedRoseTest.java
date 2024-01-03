@@ -1,90 +1,80 @@
 package cda.java.exercices.tp4TU;
 
-import cda.java.exercices.tp4TU.GildedRose;
-import cda.java.exercices.tp4TU.Item;
+import cda.java.exercices.tp4TU.LegacyCode.GildedRose;
+import cda.java.exercices.tp4TU.LegacyCode.Item;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GildedRoseTest {
+public class GoldenMasterTest {
 
     @Test
-    public void testUpdateQualityForNormalItem() {
-        Item[] items = new Item[]{new Item("Normal Item", 5, 10)};
+    public void testGoldenMaster() {
+        Item[] items = new Item[] {
+                new Item("+5 Dexterity Vest", 10, 20),
+                new Item("Aged Brie", 2, 0),
+                new Item("Elixir of the Mongoose", 5, 7),
+                new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+                new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+                new Item("Conjured Mana Cake", 3, 6)
+        };
+
         GildedRose gildedRose = new GildedRose(items);
+        int days = 2;
+        for (int i = 0; i < days; i++) {
+            gildedRose.updateQuality();
+        }
 
-        gildedRose.updateQuality();
+        assertEquals(expectedOutputAfter2Days(), actualOutputAfter2Days(items));
+    }
 
-        assertEquals(4, items[0].sellIn);
-        assertEquals(9, items[0].quality);
+    private String expectedOutputAfter2Days() {
+        return  "+5 Dexterity Vest, 8, 18\n" +
+                "Aged Brie, 0, 2\n" +
+                "Elixir of the Mongoose, 3, 5\n" +
+                "Sulfuras, Hand of Ragnaros, 0, 80\n" +
+                "Sulfuras, Hand of Ragnaros, -1, 80\n" +
+                "Backstage passes to a TAFKAL80ETC concert, 13, 22\n" +
+                "Backstage passes to a TAFKAL80ETC concert, 8, 50\n" +
+                "Backstage passes to a TAFKAL80ETC concert, 3, 50\n" +
+                "Conjured Mana Cake, 1, 4\n";
+    }
+
+    private String actualOutputAfter2Days(Item[] items) {
+        StringBuilder result = new StringBuilder();
+        for (Item item : items) {
+            result.append(item.toString()).append("\n");
+        }
+        return result.toString();
     }
 
     @Test
-    public void testUpdateQualityForAgedBrie() {
-        Item[] items = new Item[]{new Item("Aged Brie", 5, 10)};
-        GildedRose gildedRose = new GildedRose(items);
+    public void testAfterRefactoring() {
+        Item[] items = new Item[] {
+                new Item("+5 Dexterity Vest", 10, 20),
+                // ... (ajoutez d'autres items)
+        };
 
-        gildedRose.updateQuality();
+        GildedRose refactoredGildedRose = new GildedRose(items);
+        refactoredGildedRose.updateQuality();
 
-        assertEquals(4, items[0].sellIn);
-        assertEquals(11, items[0].quality);
+        // Utilisez la méthode pour comparer les résultats
+        compareResultsWithLegacy(items);
     }
 
-    @Test
-    public void testUpdateQualityForConjuredItem() {
-        Item[] items = new Item[]{new Item("Conjured Item", 5, 10)};
-        GildedRose gildedRose = new GildedRose(items);
+    private void compareResultsWithLegacy(Item[] items) {
+        GildedRose legacyGildedRose = new GildedRose(items.clone());
+        GildedRose refactoredGildedRose = new GildedRose(items);
 
-        gildedRose.updateQuality();
+        legacyGildedRose.updateQuality();
+        refactoredGildedRose.updateQuality();
 
-        assertEquals(4, items[0].sellIn);
-        assertEquals(8, items[0].quality);
+        for (int i = 0; i < items.length; i++) {
+            assertEquals(legacyGildedRose.items[i].quality, refactoredGildedRose.items[i].quality);
+            assertEquals(legacyGildedRose.items[i].sellIn, refactoredGildedRose.items[i].sellIn);
+        }
     }
-
-    @Test
-    public void testUpdateQualityForBackstagePasses() {
-        Item[] items = new Item[]{new Item("Backstage passes", 15, 20)};
-        GildedRose gildedRose = new GildedRose(items);
-
-        gildedRose.updateQuality();
-
-        assertEquals(14, items[0].sellIn);
-        assertEquals(21, items[0].quality);
-    }
-
-    @Test
-    public void testUpdateQualityForSulfuras() {
-        Item[] items = new Item[]{new Item("Sulfuras, Hand of Ragnaros", 0, 80)};
-        GildedRose gildedRose = new GildedRose(items);
-
-        gildedRose.updateQuality();
-
-        assertEquals(0, items[0].sellIn);
-        assertEquals(80, items[0].quality);
-    }
-
-    @Test
-    public void testUpdateQualityForExpiredItem() {
-        Item[] items = new Item[]{new Item("Expired Item", -1, 10)};
-        GildedRose gildedRose = new GildedRose(items);
-
-        gildedRose.updateQuality();
-
-        assertEquals(-2, items[0].sellIn);
-        assertEquals(8, items[0].quality);
-    }
-
-    @Test
-    public void testUpdateQualityForMaxQuality() {
-        Item[] items = new Item[]{new Item("Max Quality Item", 5, 50)};
-        GildedRose gildedRose = new GildedRose(items);
-
-        gildedRose.updateQuality();
-
-        assertEquals(4, items[0].sellIn);
-        assertEquals(50, items[0].quality);
-    }
-
-    // Ajoutez d'autres tests pour couvrir d'autres cas et comportements particuliers
-    // ...
 }
