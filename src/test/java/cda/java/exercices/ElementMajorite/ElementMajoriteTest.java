@@ -1,4 +1,4 @@
-package cda.java.ElementMajorite;
+package cda.java.exercices.ElementMajorite;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

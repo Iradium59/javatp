@@ -1,4 +1,4 @@
-package cda.java.prixTTCTest;
+package cda.java.exercices.PrixTTCTest;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

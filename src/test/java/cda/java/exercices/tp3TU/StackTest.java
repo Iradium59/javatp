@@ -1,4 +1,4 @@
-package cda.java.tp3TU;
+package cda.java.exercices.tp3TU;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;

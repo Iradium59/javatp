@@ -1,5 +1,6 @@
-package cda.java.exercices.ContientDoublon;
+package cda.java.exercices.ContientDoublonTest;
 
+import cda.java.exercices.ContientDoublon.ContientDoublon;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;

@@ -10,31 +10,40 @@ public class GoldenMasterTest {
 
     @Test
     public void testGoldenMaster() {
-        // Créez vos items initiaux comme dans le Main.java
         Item[] items = new Item[] {
-                // ... (les mêmes items que dans le Main.java)
+                new Item("+5 Dexterity Vest", 10, 20),
+                new Item("Aged Brie", 2, 0),
+                new Item("Elixir of the Mongoose", 5, 7),
+                new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+                new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+                new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+                new Item("Conjured Mana Cake", 3, 6)
         };
 
-        // Créez une instance de GildedRose avec ces items
         GildedRose gildedRose = new GildedRose(items);
-
-        // Exécutez la mise à jour de la qualité pour un certain nombre de jours
         int days = 2;
         for (int i = 0; i < days; i++) {
             gildedRose.updateQuality();
         }
 
-        // Comparez les résultats avec les résultats du Main.java
         assertEquals(expectedOutputAfter2Days(), actualOutputAfter2Days(items));
     }
 
     private String expectedOutputAfter2Days() {
-        // Retournez la sortie attendue après 2 jours comme une chaîne de caractères
-        return "EXPECTED_OUTPUT";
+        return  "+5 Dexterity Vest, 8, 18\n" +
+                "Aged Brie, 0, 2\n" +
+                "Elixir of the Mongoose, 3, 5\n" +
+                "Sulfuras, Hand of Ragnaros, 0, 80\n" +
+                "Sulfuras, Hand of Ragnaros, -1, 80\n" +
+                "Backstage passes to a TAFKAL80ETC concert, 13, 22\n" +
+                "Backstage passes to a TAFKAL80ETC concert, 8, 50\n" +
+                "Backstage passes to a TAFKAL80ETC concert, 3, 50\n" +
+                "Conjured Mana Cake, 1, 4\n";
     }
 
     private String actualOutputAfter2Days(Item[] items) {
-        // Retournez la sortie réelle après 2 jours comme une chaîne de caractères
         StringBuilder result = new StringBuilder();
         for (Item item : items) {
             result.append(item.toString()).append("\n");

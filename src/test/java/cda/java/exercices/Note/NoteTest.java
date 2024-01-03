@@ -1,4 +1,4 @@
-package cda.java.Note;
+package cda.java.exercices.Note;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;

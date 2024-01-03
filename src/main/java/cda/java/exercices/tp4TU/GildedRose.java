@@ -1,4 +1,4 @@
-package cda.java.exercices.tp4TU.LegacyCode;
+package cda.java.exercices.tp4TU;
 
 class GildedRose {
     Item[] items;

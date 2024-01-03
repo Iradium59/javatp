@@ -1,4 +1,4 @@
-package cda.java.exercices.tp4TU.LegacyCode;
+package cda.java.exercices.tp4TU;
 
 public class Main {
     public static void main(String[] args) {

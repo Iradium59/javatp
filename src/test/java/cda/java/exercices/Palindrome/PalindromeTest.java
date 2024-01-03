@@ -1,4 +1,4 @@
-package cda.java.Palindrome;
+package cda.java.exercices.Palindrome;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

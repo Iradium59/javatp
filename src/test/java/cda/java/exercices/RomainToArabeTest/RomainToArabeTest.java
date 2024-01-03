@@ -1,4 +1,4 @@
-package cda.java.RomainToArabeTest;
+package cda.java.exercices.RomainToArabeTest;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
