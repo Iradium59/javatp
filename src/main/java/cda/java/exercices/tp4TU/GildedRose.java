@@ -21,7 +21,6 @@ class GildedRose {
         } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
             updateBackstagePass(item);
         } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            // No need to update Sulfuras
         } else if (item.name.equals("Conjured Mana Cake")) {
             updateConjuredItem(item);
         }
@@ -57,16 +56,6 @@ class GildedRose {
         }
     }
 
-    private void updateConjuredItem(Item item) {
-        decreaseQuality(item);
-        decreaseQuality(item); // Conjured items degrade in quality twice as fast
-        decreaseSellIn(item);
-        if (item.sellIn < 0) {
-            decreaseQuality(item);
-            decreaseQuality(item);
-        }
-    }
-
     private boolean isRegularItem(Item item) {
         return !item.name.equals("Aged Brie") &&
                 !item.name.equals("Backstage passes to a TAFKAL80ETC concert") &&
@@ -80,15 +69,29 @@ class GildedRose {
         }
     }
 
-    private void decreaseQuality(Item item) {
-        if (item.quality > 0) {
-            item.quality--;
+    private void decreaseQuality(Item item, int amount) {
+        for (int i = 0; i < amount; i++) {
+            if (item.quality > 0) {
+                item.quality--;
+            }
         }
+    }
+
+    private void decreaseQuality(Item item) {
+        decreaseQuality(item, 1);
     }
 
     private void decreaseSellIn(Item item) {
         if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
             item.sellIn--;
+        }
+    }
+
+    private void updateConjuredItem(Item item) {
+        decreaseQuality(item, 2);
+        decreaseSellIn(item);
+        if (item.sellIn < 0) {
+            decreaseQuality(item, 2);
         }
     }
 }
