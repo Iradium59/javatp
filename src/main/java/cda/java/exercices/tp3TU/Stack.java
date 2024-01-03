@@ -2,37 +2,38 @@ package cda.java.exercices.tp3TU;
 
 public class Stack {
 
-    private int[] elements;
+    private int[] array;
     private int top;
 
     public Stack() {
-        this.elements = new int[10];
+        this.array = new int[10];
+        this.top = -1;
     }
 
     public void push(int element) {
-        if (top < elements.length - 1) {
+        if (top < array.length - 1) {
             top++;
-            elements[top] = element;
+            array[top] = element;
         } else {
-            throw new IllegalStateException("La stack est pleine");
+            throw new StackOverflowError("Stack is full");
         }
     }
 
     public int pop() {
         if (!isEmpty()) {
-            int poppedElement = elements[top];
+            int popped = array[top];
             top--;
-            return poppedElement;
+            return popped;
         } else {
-            throw new IllegalStateException("La stack est vide");
+            throw new IllegalStateException("Stack is empty");
         }
     }
 
     public int peek() {
         if (!isEmpty()) {
-            return elements[top];
+            return array[top];
         } else {
-            throw new IllegalStateException("La stack est vide");
+            throw new IllegalStateException("Stack is empty");
         }
     }
 
@@ -41,6 +42,7 @@ public class Stack {
     }
 
     public boolean isFull() {
-        return top == elements.length - 1;
+        return top == array.length - 1;
     }
 }
+
