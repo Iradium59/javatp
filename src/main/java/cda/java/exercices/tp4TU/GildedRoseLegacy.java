@@ -1,9 +1,9 @@
 package cda.java.exercices.tp4TU;
 
-class GildedRose {
+class GildedRoseLegacy {
     Item[] items;
 
-    public GildedRose(Item[] items) {
+    public GildedRoseLegacy(Item[] items) {
         this.items = items;
     }
 

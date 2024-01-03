@@ -8,55 +8,87 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie")
-                    && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (items[i].quality > 0) {
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].quality = items[i].quality - 1;
-                    }
-                }
-            } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
+        for (Item item : items) {
+            updateItemQuality(item);
+        }
+    }
 
-                    if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
+    private void updateItemQuality(Item item) {
+        if (isRegularItem(item)) {
+            updateRegularItem(item);
+        } else if (item.name.equals("Aged Brie")) {
+            updateAgedBrie(item);
+        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            updateBackstagePass(item);
+        } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            // No need to update Sulfuras
+        } else if (item.name.equals("Conjured Mana Cake")) {
+            updateConjuredItem(item);
+        }
+    }
 
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
+    private void updateRegularItem(Item item) {
+        decreaseQuality(item);
+        decreaseSellIn(item);
+        if (item.sellIn < 0) {
+            decreaseQuality(item);
+        }
+    }
 
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
+    private void updateAgedBrie(Item item) {
+        increaseQuality(item);
+        decreaseSellIn(item);
+        if (item.sellIn < 0) {
+            increaseQuality(item);
+        }
+    }
 
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals("Aged Brie")) {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality;
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
-                }
-            }
+    private void updateBackstagePass(Item item) {
+        increaseQuality(item);
+        if (item.sellIn < 11) {
+            increaseQuality(item);
+        }
+        if (item.sellIn < 6) {
+            increaseQuality(item);
+        }
+        decreaseSellIn(item);
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        }
+    }
+
+    private void updateConjuredItem(Item item) {
+        decreaseQuality(item);
+        decreaseQuality(item); // Conjured items degrade in quality twice as fast
+        decreaseSellIn(item);
+        if (item.sellIn < 0) {
+            decreaseQuality(item);
+            decreaseQuality(item);
+        }
+    }
+
+    private boolean isRegularItem(Item item) {
+        return !item.name.equals("Aged Brie") &&
+                !item.name.equals("Backstage passes to a TAFKAL80ETC concert") &&
+                !item.name.equals("Sulfuras, Hand of Ragnaros") &&
+                !item.name.equals("Conjured Mana Cake");
+    }
+
+    private void increaseQuality(Item item) {
+        if (item.quality < 50) {
+            item.quality++;
+        }
+    }
+
+    private void decreaseQuality(Item item) {
+        if (item.quality > 0) {
+            item.quality--;
+        }
+    }
+
+    private void decreaseSellIn(Item item) {
+        if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            item.sellIn--;
         }
     }
 }
