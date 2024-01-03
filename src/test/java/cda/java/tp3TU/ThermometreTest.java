@@ -24,7 +24,7 @@ public class ThermometreTest {
     @Test
     public void testTemperatureProcheDeZeroAvecPositif() {
         Thermometre thermometre = new Thermometre();
-        int[] temperatures = {-1, -2, -8, -4, 2};
+        int[] temperatures = {-2, -8, -4, 2};
         assertEquals(2, thermometre.getTemperatureProcheDeZero(temperatures));
     }
 }
