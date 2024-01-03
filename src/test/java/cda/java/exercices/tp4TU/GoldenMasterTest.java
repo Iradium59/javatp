@@ -50,4 +50,31 @@ public class GoldenMasterTest {
         }
         return result.toString();
     }
+
+    @Test
+    public void testAfterRefactoring() {
+        Item[] items = new Item[] {
+                new Item("+5 Dexterity Vest", 10, 20),
+                // ... (ajoutez d'autres items)
+        };
+
+        GildedRose refactoredGildedRose = new GildedRose(items);
+        refactoredGildedRose.updateQuality();
+
+        // Utilisez la méthode pour comparer les résultats
+        compareResultsWithLegacy(items);
+    }
+
+    private void compareResultsWithLegacy(Item[] items) {
+        GildedRose legacyGildedRose = new GildedRose(items.clone());
+        GildedRose refactoredGildedRose = new GildedRose(items);
+
+        legacyGildedRose.updateQuality();
+        refactoredGildedRose.updateQuality();
+
+        for (int i = 0; i < items.length; i++) {
+            assertEquals(legacyGildedRose.items[i].quality, refactoredGildedRose.items[i].quality);
+            assertEquals(legacyGildedRose.items[i].sellIn, refactoredGildedRose.items[i].sellIn);
+        }
+    }
 }
