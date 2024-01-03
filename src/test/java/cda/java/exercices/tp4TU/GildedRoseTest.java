@@ -13,6 +13,7 @@ public class GildedRoseTest {
         assertEquals(4, regularItem.sellIn);
     }
 
+
     @Test
     public void testUpdateQualityForAgedBrie() {
         Item agedBrie = new Item("Aged Brie", 3, 20);
